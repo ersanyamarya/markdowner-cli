@@ -1,0 +1,23 @@
+{
+  "cSpell.words": ["duplicative", "markdowner", "tsconfigs", "tsdx"],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#b1cabb",
+    "activityBar.activeBorder": "#8b7aa5",
+    "activityBar.background": "#b1cabb",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#8b7aa5",
+    "activityBarBadge.foreground": "#15202b",
+    "sash.hoverBorder": "#b1cabb",
+    "statusBar.background": "#92b6a0",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#73a285",
+    "statusBarItem.remoteBackground": "#92b6a0",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#92b6a0",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#92b6a099",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#92b6a0"
+}
