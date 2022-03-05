@@ -13,7 +13,6 @@ const { version } = JSON.parse(readFileSync(join(__dirname, '../package.json'), 
 const logo = readFileSync(join(__dirname, '../appLogo.txt'), 'utf8')
 log.cyan(logo)
 log.bgGray(`\nVersion: ${version}`)
-log.white('\nStarting to replace blocks...')
 
 const args = process.argv.slice(2)
 const regex =
@@ -30,6 +29,8 @@ switch (args[0]) {
     log.bgGray(`\n Version: ${version}`)
     break
   default:
+    log.white('\nStarting to replace blocks...')
+
     if (args.length === 0) {
       log.yellow('\n No files specified.')
       log.yellow('\n Using default file: README.md')
