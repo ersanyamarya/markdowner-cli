@@ -14,7 +14,7 @@
     "test": "jest --runInBand --no-cache",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watchAll",
-    "format": "prettier --write \"**/*.{ts,ts,json,md}\"",
+    "format": "prettier --write \"**/*.{ts,ts,json}\"",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install --legacy-peer-deps",
     "chmod": "sudo chmod u+x ./dist/index.js"
   },
