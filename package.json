@@ -1,10 +1,10 @@
 {
   "name": "markdowner-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "bin": {
-    "markdowner": "build/index.js"
+    "markdowner": "dist/index.js"
   },
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
