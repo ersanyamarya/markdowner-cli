@@ -1,5 +1,5 @@
 ---
-description: Quis enim amet duis proident esse officia et consequat anim sit elit nulla.
+description: Quis enim amet duis proident esse officia et consequat anim sit elit nulla
 ---
 
 Elit eu qui eu officia. Officia cillum veniam proident ea cupidatat esse ea ipsum duis. Amet ad ullamco officia est ut velit tempor reprehenderit ad. Duis minim ad in pariatur anim occaecat irure elit commodo consectetur incididunt magna exercitation.

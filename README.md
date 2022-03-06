@@ -6,21 +6,25 @@ A command-line tools crafted to make your life easier when working with markdown
 
 ## Features
 
-Replaces MD comments with either generated values of content from other files. 
+Replaces MD comments with either generated values of content from other files.
 
 ### Replace Code blocks with syntax highlighting
 
 **Example:**
 
 converts:
+
 ```md
 <!-- [CODE_SNIPPET](test/snippets/json/test.json) -->
 
 <!-- [/CODE_SNIPPET] -->
 ```
+
 with:
-```md
+
+````md
 <!-- [CODE_SNIPPET](test/snippets/json/test.json) -->
+
     ```json
     {
         "userId": 1,
@@ -29,9 +33,9 @@ with:
         "completed": false
     }
     ```
-<!-- [/CODE_SNIPPET] -->
-```
 
+<!-- [/CODE_SNIPPET] -->
+````
 
 ## How to use
 
@@ -39,4 +43,3 @@ with:
 npm install -g markdown-cli
 markdowner READE.md
 ```
-
