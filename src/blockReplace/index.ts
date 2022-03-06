@@ -1,17 +1,8 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import log from '../colorLogger'
-import { getMatchedContent, graceFullFileNotExist } from '../utils'
+import { getMatchedContent, graceFullFileNotExist, replaceCommentBody } from '../utils'
 import { getReplacedBlock } from './createBlock'
-
-export const replaceCommentBody = (comment: string, newContent: string): string => {
-  const regex = /\n[^ ]*\n/g
-  const matched = comment.match(regex)
-
-  if (matched === null) return comment
-
-  return comment.replace(matched[0], `\n${newContent}\n`)
-}
 
 interface RegexGroup {
   type: string

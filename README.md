@@ -2,7 +2,7 @@
 
 # markdowner-cli
 
-A CLI based tool crafted to make you your life easier while working with documentation in md file.
+A command-line tools crafted to make your life easier when working with markdown-based documentation.
 
 ## Features
 
