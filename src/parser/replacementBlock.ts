@@ -1,5 +1,6 @@
 import { getJSONFromStringPath, getMatchedContent, log, readLinesFromContent } from '../utils'
 import { parseOptions } from './options'
+import { error, silent, verbose } from './config'
 
 /**
  * It takes a file content and a replacement file content and returns a replacement block.
@@ -31,7 +32,7 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
       return '```' + ext + '\n' + replaceMentFileContent.trim() + '\n```'
 
     case 'JSON':
-      if (ext !== 'json') log.red(`> ${type} is only supported for json files`)
+      if (ext !== 'json') error && log.red(`> ${type} is only supported for json files`)
       else {
         let parsedJson = JSON.parse(replaceMentFileContent)
         if (parsedOptions && parsedOptions.type === 'CSV') {
@@ -55,10 +56,9 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
           const regExp = new RegExp(`${value}:\n(?<command>[\\s\\S]*?)\n\.phony: ${value}`, 'g')
           const matched = getMatchedContent(regExp, replaceMentFileContent)
           if (!matched) {
-            log.red(`> ${type} is not supported for ${value}`)
+            error && log.red(`> ${type} is not supported for ${value}`)
             continue
           }
-          // log.bgGray(matched.groups?.command.replace(/\n\s/g, '\n'))
           return '```sh\n' + matched.groups?.command.replace(/\s{3,}/g, '\n') + '\n```'
         }
       }

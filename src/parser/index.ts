@@ -1,4 +1,5 @@
 import { join } from 'path'
+import { error, silent } from '../config'
 import { getFileDataAndDir, getMatchedContent, log, replaceCommentBody, REPLACER_REGEXP } from '../utils'
 import { getReplacementBlock } from './replacementBlock'
 
@@ -26,15 +27,15 @@ const parseComment = (comment: string, fileDir: string): string => {
 
     const replaceContentFile = type !== 'MAKEFILE' ? join(fileDir, `${replacer}.${ext}`) : join(fileDir, replacer)
 
-    log.blue(`> Reading file: ${replaceContentFile}`)
+    !silent && log.blue(`> Reading file: ${replaceContentFile}`)
 
     const replacementFileContent = getFileDataAndDir(replaceContentFile).content
 
     const replacementBlock = getReplacementBlock(type, ext, option, replacementFileContent)
 
     return replaceCommentBody(comment, replacementBlock)
-  } catch (error) {
-    log.red(`> Error parsing comment: ${error} \n ${comment}`)
+  } catch (err) {
+    error && log.red(`> Error parsing comment: ${err} \n ${comment}`)
     return comment
   }
 }

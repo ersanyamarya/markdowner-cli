@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'fs'
 import { dirname } from 'path'
+import { error } from '../config'
 
 /**
  * If the file does not exist, print a red error message
@@ -8,8 +9,8 @@ import { dirname } from 'path'
  */
 export const gracefulFileNotExist = (file: string, message = '') => {
   if (!existsSync(file)) {
-    console.log('\x1b[31m%s\x1b[0m', `\nFile not found:  ${file} does not exist.`)
-    message && console.log('\x1b[31m%s\x1b[0m', `\n  ${message}`)
+    error && console.log('\x1b[31m%s\x1b[0m', `\nFile not found:  ${file} does not exist.`)
+    error && message && console.log('\x1b[31m%s\x1b[0m', `\n  ${message}`)
   }
 }
 
