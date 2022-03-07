@@ -2,20 +2,51 @@
 description: Quis enim amet duis proident esse officia et consequat anim sit elit nulla
 ---
 
-Elit eu qui eu officia. Officia cillum veniam proident ea cupidatat esse ea ipsum duis. Amet ad ullamco officia est ut velit tempor reprehenderit ad. Duis minim ad in pariatur anim occaecat irure elit commodo consectetur incididunt magna exercitation.
 
-<!-- [CODE_SNIPPET](snippets/js/test.js) -->
+<!-- MD[CODE_SNIPPET](snippets/js/test.js)[] -->
 
-<!-- [/CODE_SNIPPET] -->
+<!-- MD[/CODE_SNIPPET] -->
 
-Ea duis voluptate officia occaecat. Tempor cillum officia in nulla pariatur in duis. Nostrud tempor aute eu nulla ullamco quis. In eiusmod eiusmod veniam est Lorem pariatur sunt ipsum exercitation ex.
 
-<!-- [CODE_SNIPPET](snippets/json/test.json) -->
+<!-- MD[CODE_SNIPPET](snippets/json/test.json)[] -->
 
-<!-- [/CODE_SNIPPET] -->
+<!-- MD[/CODE_SNIPPET] -->
 
-Pariatur proident ut esse est dolor dolore elit aute incididunt aliquip veniam. Voluptate nisi in magna reprehenderit nulla pariatur laboris. Occaecat duis qui consectetur eu sunt eu nostrud.
 
-<!-- [UNKNOWN](snippets/js/test.js) -->
+<!-- MD[UNKNOWN](snippets/js/test.js)[] -->
 
-<!-- [/UNKNOWN] -->
+<!-- MD[/UNKNOWN] -->
+
+### JSON  \[CODE_SNIPPET\] find `score[1].math`
+
+<!-- MD[CODE_SNIPPET](snippets/json/test.json)[score[1].math,] -->
+
+<!-- MD[/CODE_SNIPPET] -->
+
+### JSON \[CODE_SNIPPET\] find `location.lat` and `score[0].english`
+
+<!-- MD[CODE_SNIPPET](snippets/json/test.json)[location.lat,score[0].english] -->
+
+<!-- MD[/CODE_SNIPPET] -->
+
+### JSON  \[JSON\] find `location.lat` and `score[0].english`
+
+<!-- MD[JSON](snippets/json/test.json)[location.lat,score[0].english] -->
+
+<!-- MD[/JSON] -->
+
+### JSON  \[JSON\] find  `score[0].english`
+
+<!-- MD[JSON](snippets/json/test.json)[score[0].english,] -->
+
+<!-- MD[/JSON] -->
+
+
+
+<!-- MD[MAKEFILE](MAKEFILE.mk)[] -->
+
+<!-- MD[/MAKEFILE] -->
+
+<!-- MD[MAKEFILE](MAKEFILE.mk)[run_image,] -->
+
+<!-- MD[/MAKEFILE] -->

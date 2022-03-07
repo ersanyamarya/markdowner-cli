@@ -1,4 +1,4 @@
-import { getJSONFromStringPath, log, readLinesFromContent } from '../utils'
+import { getJSONFromStringPath, getMatchedContent, log, readLinesFromContent } from '../utils'
 import { parseOptions } from './options'
 
 /**
@@ -49,6 +49,20 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
       }
       return replaceMentFileContent
 
+    case 'MAKEFILE':
+      if (parsedOptions && parsedOptions.type === 'CSV') {
+        for (const value of parsedOptions.values) {
+          const regExp = new RegExp(`${value}:\n(?<command>[\\s\\S]*?)\n\.phony: ${value}`, 'g')
+          const matched = getMatchedContent(regExp, replaceMentFileContent)
+          if (!matched) {
+            log.red(`> ${type} is not supported for ${value}`)
+            continue
+          }
+          // log.bgGray(matched.groups?.command.replace(/\n\s/g, '\n'))
+          return '```sh\n' + matched.groups?.command.replace(/\s{3,}/g, '\n') + '\n```'
+        }
+      }
+      return '```sh\n' + replaceMentFileContent.trim() + '\n```'
     default:
       return replaceMentFileContent.trim()
   }

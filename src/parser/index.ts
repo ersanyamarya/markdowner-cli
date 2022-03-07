@@ -15,17 +15,28 @@ interface RegexGroup {
  * @param {string} fileDir - The directory of the file that contains the comment.
  * @returns A string that is the comment with the replacement block inserted.
  */
-const parseComment = (comment: string, fileDir: string) => {
-  const { type, replacer, ext, option } = getMatchedContent(REPLACER_REGEXP, comment)?.groups as unknown as RegexGroup
+const parseComment = (comment: string, fileDir: string): string => {
+  try {
+    const {
+      type,
+      replacer,
+      ext = '',
+      option,
+    } = getMatchedContent(REPLACER_REGEXP, comment)?.groups as unknown as RegexGroup
 
-  const replaceContentFile = join(fileDir, `${replacer}.${ext}`)
-  log.blue(`> Reading file: ${replaceContentFile}`)
+    const replaceContentFile = type !== 'MAKEFILE' ? join(fileDir, `${replacer}.${ext}`) : join(fileDir, replacer)
 
-  const replacementFileContent = getFileDataAndDir(replaceContentFile).content
+    log.blue(`> Reading file: ${replaceContentFile}`)
 
-  const replacementBlock = getReplacementBlock(type, ext, option, replacementFileContent)
+    const replacementFileContent = getFileDataAndDir(replaceContentFile).content
 
-  return replaceCommentBody(comment, replacementBlock)
+    const replacementBlock = getReplacementBlock(type, ext, option, replacementFileContent)
+
+    return replaceCommentBody(comment, replacementBlock)
+  } catch (error) {
+    log.red(`> Error parsing comment: ${error} \n ${comment}`)
+    return comment
+  }
 }
 
 export default parseComment
