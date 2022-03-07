@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 
-import clear from 'console'
-import { readFileSync, writeFileSync } from 'fs'
-import { dirname, join } from 'path'
-import { replaceComment } from './blockReplace'
-import log from './colorLogger'
-import { REPLACER_REGEXP } from './regExp'
-import { graceFullFileNotExist } from './utils'
-clear.clear()
+import { readFileSync } from 'fs'
+import { join } from 'path'
+import parseComment from './parser'
+import { getFileDataAndDir, log, MARKDOWNER_COMMENT_REGEX } from './utils'
 
+console.clear()
 const { version } = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf8'))
 
 const logo = readFileSync(join(__dirname, '../appLogo.txt'), 'utf8')
@@ -16,45 +13,40 @@ log.cyan(logo)
 log.bgGray(`\nVersion: ${version}`)
 
 const args = process.argv.slice(2)
-const defaultFile = `./README.md`
+const defaultFile = `./test.md`
 
-switch (args[0]) {
-  case '-h' || '--help':
-    log.yellow('\nUsage:')
-    log.yellow('\n  markdowner [filepath]')
-    log.yellow('\nOptions:')
-    log.yellow('\n  -h, --help')
-    log.yellow('\n    Show this help message.')
-    break
-  case '-v' || '--version':
-    log.bgGray(`\n Version: ${version}`)
-    break
-  default:
-    log.white('\nStarting to replace blocks...')
-    if (args.length === 0) {
-      log.yellow('\n No files specified.')
-      log.yellow(`\n Using default file: ${defaultFile}`)
-      args.push(defaultFile)
+const { content, dir } = getFileDataAndDir(defaultFile)
+
+const matched = content.match(MARKDOWNER_COMMENT_REGEX)
+
+if (matched !== null) {
+  log.blue(`\n> Found ${matched.length} comments\n`)
+  log.white(matched)
+  for (const comment of matched) {
+    const commentName = comment.split('\n')[0]
+    log.blue(`\n> Replacing ${commentName}`)
+    try {
+      log.white(parseComment(comment, dir))
+    } catch (err) {
+      log.red(`error parsing ${commentName} : ${err}`)
     }
-
-    log.white(`\nFiles to transform:`)
-
-    for (const file of args) {
-      log.white(`${file}`)
-      const { content, dir } = getFileDataAndDir(file)
-      const newContent = replaceComment(content, dir, REPLACER_REGEXP)
-      log.white(`\nWriting to ${file}...`)
-      writeFileSync(file, newContent)
-      log.white('\nDone writing to file!')
-    }
-
-    break
-}
-
-function getFileDataAndDir(file: string) {
-  graceFullFileNotExist(file)
-  return {
-    content: readFileSync(file, 'utf8'),
-    dir: dirname(file),
   }
+} else {
+  log.red(`\n> No comments found\n`)
 }
+
+// <!-- MD[UNKNOWN](test/snippets/js/test.js)[all] -->
+
+// <!-- MD[/UNKNOWN] -->
+
+// <!-- MD[MAKEFILE](MAKEFILE.mk)[all] -->
+
+// <!-- MD[/MAKEFILE] -->
+
+// <!-- MD[JSON](package.json)[name,] -->
+
+// <!-- MD[/JSON] -->
+
+// <!-- MD[JSON](package.json)[name,author] -->
+
+// <!-- MD[/JSON] -->

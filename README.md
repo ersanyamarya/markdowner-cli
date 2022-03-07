@@ -1,5 +1,7 @@
 ![logo](assets/logo.png)
 
+![Codacy grade](https://img.shields.io/codacy/grade/a68f6282624d4ac4ba8936fcfe41fdda?style=for-the-badge)
+
 # markdowner-cli
 
 A command-line tools crafted to make your life easier when working with markdown-based documentation.
