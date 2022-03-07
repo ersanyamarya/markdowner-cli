@@ -25,7 +25,7 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
         }
         replaceMentFileContent = JSON.stringify(parsedJson, null, 4)
       }
-      if (parsedOptions && parsedOptions.type === 'START_STOP') {
+      if (parsedOptions && parsedOptions.type === 'START_END') {
         replaceMentFileContent = readLinesFromContent(replaceMentFileContent, parsedOptions.values as number[])
       }
       return '```' + ext + '\n' + replaceMentFileContent.trim() + '\n```'

@@ -6,7 +6,7 @@ const REPLACER_REGEXP =
 const COMMENT_BODY = /-->[\s\S]*?<!--/g
 
 const OPTIONS = {
-  START_STOP: /[^ ]*:[^ ]*/g,
+  START_END: /[^ ]*:[^ ]*/g,
   CSV: /[^ ]*,[^ ]*/g,
 }
 

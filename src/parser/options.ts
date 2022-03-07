@@ -10,11 +10,11 @@ export const parseOptions = (
   values: string[] | number[]
 } | null => {
   const OPTIONS = {
-    START_STOP: /^\d+:\d+$/g,
+    START_END: /^\d+:\d+$/g,
     CSV: /[^ ]*,[^ ]*/g,
   }
   if (!option || option.trim() === '' || option.trim() === 'null') return null
-  if (OPTIONS.START_STOP.test(option)) return { type: 'START_STOP', values: option.split(':').map(a => parseInt(a)) }
+  if (OPTIONS.START_END.test(option)) return { type: 'START_END', values: option.split(':').map(a => parseInt(a)) }
   if (OPTIONS.CSV.test(option))
     return {
       type: 'CSV',
