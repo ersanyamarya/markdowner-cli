@@ -1,40 +1,35 @@
+import { readFileSync } from 'fs'
 import { join } from 'path'
-import { getFileDataAndDir, gracefulFileNotExist } from '../src/utils'
+import { replaceCommentBody, readLinesFromContent } from '../src/utils'
 
-describe('gracefulFileNotExist function', () => {
-  it('should print a red error message if the file does not exist', () => {
-    const file = join(__dirname, './test.txt')
-    const message = 'This is a test message'
-    const spy = jest.spyOn(console, 'log')
-    gracefulFileNotExist(file, message)
-    expect(spy).toHaveBeenCalledWith('\x1b[31m%s\x1b[0m', `\nFile not found:  ${file} does not exist.`)
-    expect(spy).toHaveBeenCalledWith('\x1b[31m%s\x1b[0m', `\n  ${message}`)
+describe('replaceCommentBody function', () => {
+  const testData = [
+    {
+      comment: '<!-- MD[UNKNOWN](test/snippets/js/test.js)[all] -->\n<!-- MD[/UNKNOWN] -->',
+      content: 'test',
+      expected: '<!-- MD[UNKNOWN](test/snippets/js/test.js)[all] -->\ntest\n<!-- MD[/UNKNOWN] -->',
+    },
+  ]
+  testData.forEach(({ comment, content, expected }) => {
+    it(`should replace the comment body with ${content}`, () => {
+      expect(replaceCommentBody(comment, content)).toEqual(expected)
+    })
   })
 })
 
-describe('getFileDataAndDir function', () => {
+describe('readLinesFromContent function', () => {
   const testData = [
     {
-      fileName: join(__dirname, './assets/testFile.txt'),
-      expected: {
-        dir: '/Users/sanyam/workspace/openSource/markdowner-cli/test/assets',
-        content: 'test data',
-      },
+      content: readFileSync(join(__dirname, './assets/testFile.txt'), 'utf8'),
+      lines: [1, 3],
+      expected: `Sint veniam proident deserunt laboris tempor eiusmod commodo Lorem amet elit est ut consequat.
+Enim ea excepteur cillum irure culpa laborum anim pariatur nulla Lorem.
+Laborum non cillum laborum excepteur occaecat aliquip occaecat ipsum irure in reprehenderit sunt proident.`,
     },
   ]
-
-  testData.forEach(({ fileName, expected }) => {
-    it(`should return dir and content for ${fileName}`, () => {
-      expect(getFileDataAndDir(fileName)).toEqual(expected)
+  testData.forEach(({ content, lines, expected }) => {
+    it(`should return the lines ${lines} from ${content}`, () => {
+      expect(readLinesFromContent(content, lines)).toEqual(expected)
     })
-  })
-
-  it('should print a red error message if the file does not exist', () => {
-    const file = join(__dirname, './test.txt')
-    const message = 'This is a test message'
-    const spy = jest.spyOn(console, 'log')
-    gracefulFileNotExist(file, message)
-    expect(spy).toHaveBeenCalledWith('\x1b[31m%s\x1b[0m', `\nFile not found:  ${file} does not exist.`)
-    expect(spy).toHaveBeenCalledWith('\x1b[31m%s\x1b[0m', `\n  ${message}`)
   })
 })

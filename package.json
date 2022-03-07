@@ -16,7 +16,8 @@
     "test:watch": "jest --watchAll",
     "format": "prettier --write \"**/*.{ts,ts,json}\"",
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install --legacy-peer-deps",
-    "chmod": "sudo chmod u+x ./dist/index.js"
+    "chmod": "sudo chmod u+x ./dist/index.js",
+    "clean": "rm -rf coverage dist"
   },
   "repository": {
     "type": "git",

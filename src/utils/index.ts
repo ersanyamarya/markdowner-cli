@@ -2,6 +2,7 @@ import log from './colorLogger'
 import { COMMENT_BODY } from './regExp'
 export * from './files'
 export * from './regExp'
+export * from './jsonUtils'
 export { log }
 
 /**
@@ -37,25 +38,5 @@ export const replaceCommentBody = (comment: string, newContent: string): string 
  */
 export const readLinesFromContent = (content: string, startStop: number[]): string => {
   const lines = content.split('\n')
-  return lines.slice(startStop[0], startStop[1]).join('\n')
-}
-
-/**
- * Given a string that represents a path to a value in a JSON object, return the value at that path
- * @param {string} str - The string to search for.
- * @param jsonData - The JSON data to search through.
- * @returns The value of the key in the JSON object.
- */
-export const findJSONFromStringDotKeys = (str: string, jsonData: Record<string, unknown>): unknown => {
-  if (str.includes('.')) {
-    const keys = str.split('.')
-    const localJsonData = jsonData[keys[0]] as Record<string, unknown>
-    return findJSONFromStringDotKeys(keys.slice(1).join('.'), localJsonData)
-  }
-  if (str.includes('[')) {
-    const index = parseInt(str.split('[')[1].split(']')[0])
-    const localJsonData = jsonData[str.split('[')[0]] as unknown[]
-    return localJsonData[index]
-  }
-  return jsonData[str]
+  return lines.slice(startStop[0], startStop[1] + 1).join('\n')
 }

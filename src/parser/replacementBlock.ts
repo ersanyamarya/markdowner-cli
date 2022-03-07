@@ -1,4 +1,4 @@
-import { findJSONFromStringDotKeys, log, readLinesFromContent } from '../utils'
+import { getJSONFromStringPath, log, readLinesFromContent } from '../utils'
 import { parseOptions } from './options'
 
 /**
@@ -19,7 +19,7 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
         if (parsedOptions && parsedOptions.type === 'CSV') {
           const values: Record<string, unknown> = {}
           for (const value of parsedOptions.values) {
-            values[value] = findJSONFromStringDotKeys(value.toString(), parsedJson)
+            values[value] = getJSONFromStringPath(value.toString(), parsedJson)
           }
           parsedJson = values
         }
@@ -36,11 +36,11 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
         let parsedJson = JSON.parse(replaceMentFileContent)
         if (parsedOptions && parsedOptions.type === 'CSV') {
           if (parsedOptions.values.length === 1)
-            parsedJson = findJSONFromStringDotKeys(parsedOptions.values[0].toString(), parsedJson)
+            parsedJson = getJSONFromStringPath(parsedOptions.values[0].toString(), parsedJson)
           else {
             const values: Record<string, unknown> = {}
             for (const value of parsedOptions.values) {
-              values[value] = findJSONFromStringDotKeys(value.toString(), parsedJson)
+              values[value] = getJSONFromStringPath(value.toString(), parsedJson)
             }
             parsedJson = values
           }
