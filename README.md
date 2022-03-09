@@ -32,17 +32,17 @@ markdowner READE.md
 
 | Type         | Description                                                                                                |
 | ------------ | ---------------------------------------------------------------------------------------------------------- |
-| CODE_SNIPPET | Replace with content form a file with syntax highlighting and code block                                   |
+| CODE_SNIPPET | Replace with content form a file with syntax highlighting and code block.                                  |
 | JSON         | Get json content with desired options with path of the key/s to extract.                                   |
 | MAKEFILE     | Get content from Makefile (use `.mk` extension with makefile). EIther the whole file or a set of commands. |
 
 
 ### We have two tpe of options
 
-| Option    | Example                           | Description                                                |
-| --------- | --------------------------------- | ---------------------------------------------------------- |
-| START END | [1:5]                             | Start from 1st line and read upto the 5th line             |
-| CSV       | [name,version,], [author[9].url,] | comma seperated values of the entities you want to extract |
+| Option    | Example                           | Description                                                 |
+| --------- | --------------------------------- | ----------------------------------------------------------- |
+| START END | [1:5]                             | Start from 1st line and read up to the 5th line.            |
+| CSV       | [name,version,], [author[9].url,] | comma separated values of the entities you want to extract. |
 
 
 ## Features
@@ -78,9 +78,11 @@ with:
 
 replaces: 
 
+
+replaces: 
+
 ```md
 <!-- MD[CODE_SNIPPET](package.json)[version,] -->
-
 
 <!-- MD[/CODE_SNIPPET] -->
 ```
@@ -89,10 +91,14 @@ with
 
 ```md
 <!-- MD[CODE_SNIPPET](package.json)[version,] -->
-
-
+    ```json
+    {
+        "version": "1.1.0"
+    }
+    ```
 <!-- MD[/CODE_SNIPPET] -->
 ```
+
 
 #### When substituting from `MAKEFILE` use `.mk` extension. 
 
@@ -100,7 +106,7 @@ replaces:
 
 ```md
 <!-- MD[MAKEFILE](test/assets/MAKEFILE.mk)[] -->
-```sh
+
 <!-- MD[/MAKEFILE] -->
 ```
 
