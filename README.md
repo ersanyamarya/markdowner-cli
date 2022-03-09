@@ -13,6 +13,37 @@ A command-line tools crafted with love ❤️ and code 💻 to make your life ea
 3. Automatically generate different parts your document just by using comments, and markdowner off course 🤪.
 4. More features to be added .... 👍.
 
+## How to use
+
+```sh
+npm install -g markdown-cli
+markdowner READE.md
+```
+
+## Analogy 
+
+```
+<!-- MD[<TYPE>](<source path with extension>)[<OPTIONS>] -->
+
+<!-- MD[/<TYPE>] -->
+```
+
+### Supported Types
+
+| Type         | Description                                                                                                |
+| ------------ | ---------------------------------------------------------------------------------------------------------- |
+| CODE_SNIPPET | Replace with content form a file with syntax highlighting and code block                                   |
+| JSON         | Get json content with desired options with path of the key/s to extract.                                   |
+| MAKEFILE     | Get content from Makefile (use `.mk` extension with makefile). EIther the whole file or a set of commands. |
+
+
+### We have two tpe of options
+
+| Option    | Example                           | Description                                                |
+| --------- | --------------------------------- | ---------------------------------------------------------- |
+| START END | [1:5]                             | Start from 1st line and read upto the 5th line             |
+| CSV       | [name,version,], [author[9].url,] | comma seperated values of the entities you want to extract |
+
 
 ## Features
 
@@ -119,19 +150,17 @@ with:
 replaces:
 ```md
 <!-- MD[CODE_SNIPPET](test/assets/testFIle.txt)[2:3] -->
-```txt
 
-```
 <!-- MD[/CODE_SNIPPET] -->
 ```
 
 with:
 ```md
 <!-- MD[CODE_SNIPPET](test/assets/testFIle.txt)[2:3] -->
-```txt
-    Enim ea excepteur cillum irure culpa laborum anim pariatur nulla Lorem.
-    Laborum non cillum laborum excepteur occaecat aliquip occaecat ipsum irure in reprehenderit sunt proident.
-```
+    ```txt
+        Enim ea excepteur cillum irure culpa laborum anim pariatur nulla Lorem.
+        Laborum non cillum laborum excepteur occaecat aliquip occaecat ipsum irure in reprehenderit sunt proident.
+    ```
 <!-- MD[/CODE_SNIPPET] -->
 ```
 
@@ -155,9 +184,4 @@ version:
 
 ```
 
-## How to use
 
-```sh
-npm install -g markdown-cli
-markdowner READE.md
-```
