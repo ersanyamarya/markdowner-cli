@@ -22,6 +22,7 @@ markdowner READE.md
 
 ## Analogy 
 
+> Add comments as follows:
 ```
 <!-- MD[<TYPE>](<source path with extension>)[<OPTIONS>] -->
 
