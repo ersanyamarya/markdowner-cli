@@ -10,7 +10,12 @@ import { parseOptions } from './options'
  * @param {string} replaceMentFileContent - The content of the file that is being replaced
  * @returns The content for the replacement.
  */
-export const getReplacementBlock = (type: string, ext: string, option: string, replaceMentFileContent: string) => {
+export const getReplacementBlock = (
+  type: string,
+  ext: string,
+  option: string,
+  replaceMentFileContent: string
+): string => {
   const parsedOptions = parseOptions(option)
   config.verbose && log.white(`> Parsed options: ${JSON.stringify(parsedOptions)}`)
   switch (type) {
@@ -53,7 +58,7 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
     case 'MAKEFILE':
       if (parsedOptions && parsedOptions.type === 'CSV') {
         for (const value of parsedOptions.values) {
-          const regExp = new RegExp(`${value}:\n(?<command>[\\s\\S]*?)\n\.phony: ${value}`, 'g')
+          const regExp = new RegExp(`${value}:\n(?<command>[\\s\\S]*?)\n.phony: ${value}`, 'g')
           const matched = getMatchedContent(regExp, replaceMentFileContent)
           if (!matched) {
             config.error && log.red(`> ${type} is not supported for ${value}`)

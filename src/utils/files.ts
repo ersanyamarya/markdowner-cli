@@ -7,7 +7,7 @@ import config from '../config'
  * @param {string} file - The file that is being checked for existence.
  * @param [message] - A message to display to the user.
  */
-export const gracefulFileNotExist = (file: string, message = '') => {
+export const gracefulFileNotExist = (file: string, message = ''): void => {
   if (!existsSync(file)) {
     config.error && console.log('\x1b[31m%s\x1b[0m', `\nFile not found:  ${file} does not exist.`)
     config.error && message && console.log('\x1b[31m%s\x1b[0m', `\n  ${message}`)

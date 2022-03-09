@@ -1,4 +1,3 @@
-import { exit } from 'process'
 import { log } from '../utils'
 
 const config = {
