@@ -201,7 +201,7 @@ version:
 <!-- MD[/JSON] -->
 ```
 
-Hope you like this. 
+Hope you like this.
 
 Developer:
 

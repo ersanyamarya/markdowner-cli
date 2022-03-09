@@ -1,6 +1,6 @@
 {
   "name": "markdowner-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -23,7 +23,17 @@
     "type": "git",
     "url": "git+https://github.com/ersanyamarya/markdowner-cli.git"
   },
-  "keywords": [],
+  "keywords": [
+    "markdwon",
+    "markdowner",
+    "markdowner-cli",
+    "markdown utility",
+    "utility",
+    "replace comment in markdown",
+    "replace comment in markdown file",
+    "replace comment in markdown file with code",
+    "replace comment in markdown file with code block"
+  ],
   "author": "Sanyam Arya",
   "license": "ISC",
   "bugs": {
