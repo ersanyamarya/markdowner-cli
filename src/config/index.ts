@@ -1,34 +1,79 @@
-import { readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
-const confFile = join(__dirname, './config.json')
+import { exit } from 'process'
+import { log } from '../utils'
 
-interface Config {
-  verbose: boolean
-  error: boolean
-  silent: boolean
+const config = {
+  verbose: false,
+  silent: false,
+  error: true,
 }
 
-const readConfFile = (): Config => JSON.parse(readFileSync(confFile, 'utf8'))
-const writeConfFile = (data: Config) => writeFileSync(confFile, JSON.stringify(data, null, 4))
-
-export const setVerbose = () => {
-  const configurations = readConfFile()
-  configurations.verbose = true
-  writeConfFile(configurations)
+interface Option {
+  name: string
+  short: string
+  description: string
+  action: () => void
 }
 
-export const setSilent = () => {
-  const configurations = readConfFile()
-  configurations.silent = true
-  writeConfFile(configurations)
+const options: Option[] = [
+  {
+    name: 'verbose',
+    short: 'v',
+    description: 'Show verbose output',
+    action: () => {
+      config.verbose = true
+      config.silent = true
+      config.error = false
+    },
+  },
+  {
+    name: 'silent',
+    short: 's',
+    description: 'Dont show any output',
+    action: () => {
+      config.silent = true
+    },
+  },
+  {
+    name: 'error',
+    short: 'e',
+    description: 'Disable error output',
+    action: () => {
+      config.error = false
+    },
+  },
+  {
+    name: 'help',
+    short: 'h',
+    description: 'Show the help',
+    action: () => {
+      log.cyan(
+        options.reduce((acc, curr: Option) => {
+          acc += `\t--${curr.name}, -${curr.short}\t${curr.description}\n`
+          return acc
+        }, 'Help:\nmarkdowner [options] [files]\n\n')
+      )
+      // exit(0)
+    },
+  },
+]
+interface Configuration {
+  [key: string]: {
+    description: string
+    action: () => void
+  }
 }
 
-export const setError = () => {
-  const configurations = readConfFile()
-  configurations.error = true
-  writeConfFile(configurations)
-}
+const configuration: Configuration = options.reduce((acc, curr: Option) => {
+  acc[curr.name] = {
+    description: curr.description,
+    action: curr.action,
+  }
+  acc[curr.short] = {
+    description: curr.description,
+    action: curr.action,
+  }
+  return acc
+}, {} as Configuration)
 
-export const verbose = readConfFile().verbose
-export const silent = readConfFile().silent
-export const error = readConfFile().error
+export default config
+export { configuration }

@@ -1,6 +1,6 @@
+import config from '../config'
 import { getJSONFromStringPath, getMatchedContent, log, readLinesFromContent } from '../utils'
 import { parseOptions } from './options'
-import { error, silent, verbose } from './config'
 
 /**
  * It takes a file content and a replacement file content and returns a replacement block.
@@ -12,7 +12,7 @@ import { error, silent, verbose } from './config'
  */
 export const getReplacementBlock = (type: string, ext: string, option: string, replaceMentFileContent: string) => {
   const parsedOptions = parseOptions(option)
-
+  config.verbose && log.white(`> Parsed options: ${JSON.stringify(parsedOptions)}`)
   switch (type) {
     case 'CODE_SNIPPET':
       if (ext === 'json') {
@@ -32,7 +32,7 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
       return '```' + ext + '\n' + replaceMentFileContent.trim() + '\n```'
 
     case 'JSON':
-      if (ext !== 'json') error && log.red(`> ${type} is only supported for json files`)
+      if (ext !== 'json') config.error && log.red(`> ${type} is only supported for json files`)
       else {
         let parsedJson = JSON.parse(replaceMentFileContent)
         if (parsedOptions && parsedOptions.type === 'CSV') {
@@ -56,7 +56,7 @@ export const getReplacementBlock = (type: string, ext: string, option: string, r
           const regExp = new RegExp(`${value}:\n(?<command>[\\s\\S]*?)\n\.phony: ${value}`, 'g')
           const matched = getMatchedContent(regExp, replaceMentFileContent)
           if (!matched) {
-            error && log.red(`> ${type} is not supported for ${value}`)
+            config.error && log.red(`> ${type} is not supported for ${value}`)
             continue
           }
           return '```sh\n' + matched.groups?.command.replace(/\s{3,}/g, '\n') + '\n```'

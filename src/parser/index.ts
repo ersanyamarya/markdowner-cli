@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { error, silent } from '../config'
+import config from '../config'
 import { getFileDataAndDir, getMatchedContent, log, replaceCommentBody, REPLACER_REGEXP } from '../utils'
 import { getReplacementBlock } from './replacementBlock'
 
@@ -24,18 +24,22 @@ const parseComment = (comment: string, fileDir: string): string => {
       ext = '',
       option,
     } = getMatchedContent(REPLACER_REGEXP, comment)?.groups as unknown as RegexGroup
+    config.verbose &&
+      log.white(`\n> Parsing comment: ${comment}, type: ${type}, replacer: ${replacer}, ext: ${ext}, option: ${option}`)
 
     const replaceContentFile = type !== 'MAKEFILE' ? join(fileDir, `${replacer}.${ext}`) : join(fileDir, replacer)
-
-    !silent && log.blue(`> Reading file: ${replaceContentFile}`)
+    config.verbose && log.white(`> Replacing with content file: ${replaceContentFile}`)
+    !config.silent && log.blue(`> Reading file: ${replaceContentFile}`)
 
     const replacementFileContent = getFileDataAndDir(replaceContentFile).content
+    config.verbose && log.white(`> Content of replacement file: ${replacementFileContent}`)
 
     const replacementBlock = getReplacementBlock(type, ext, option, replacementFileContent)
+    config.verbose && log.white(`> Replacement block: ${replacementBlock}`)
 
     return replaceCommentBody(comment, replacementBlock)
   } catch (err) {
-    error && log.red(`> Error parsing comment: ${err} \n ${comment}`)
+    config.error && log.red(`> Error parsing comment: ${err} \n ${comment}`)
     return comment
   }
 }

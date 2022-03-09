@@ -49,8 +49,6 @@ describe('getReplacementBlock function', () => {
   ]
   testData.forEach(({ content, expected, ext }) => {
     it(`should return the correct replacement block for ${ext}`, () => {
-      console.log({ content: parseComment(content, __dirname), expected })
-
       expect(parseComment(content, __dirname)).toStrictEqual(expected)
     })
   })
